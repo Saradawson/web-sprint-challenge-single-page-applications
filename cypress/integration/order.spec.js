@@ -12,5 +12,8 @@ describe('visits bloomtech eats website', () => {
     it('can order a pizza', () => {
         const orderForm = cy.get(`#order-pizza`);
         expect(orderForm).to.exist;
+        orderForm.click();
+        const h2 = cy.get('#order-form-h2');
+        h2.contains('Create Your Own Pizza');
     })
 })

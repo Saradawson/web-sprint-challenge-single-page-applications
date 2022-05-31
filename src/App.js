@@ -21,7 +21,6 @@ const App = () => {
         <p>BloomTech Eats brings food to coders like you! Take a break and order a custom pizza! All you have to do is click 'Order a Pizza Here'!</p>
       </Route>
       <Route exact path='/pizza'>
-        <h1>Create Your Own Pizza!</h1>
         <Orderform />
       </Route>
       <Route exact path='/myorder'></Route>

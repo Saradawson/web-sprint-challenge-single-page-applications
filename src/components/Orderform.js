@@ -1,15 +1,27 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
-const Orderform = (props) => {
+const initialFormState = {
+   fullname: '',
+   size: '',
+   peperoni: false,
+   olives: false,
+   peppers: false,
+   mushrooms: false,
+   instructions: ''
+}
+
+const Orderform = () => {
+
     return(
         <div id='orderform'>
+            <h1 id="order-form-h2">Create Your Own Pizza!</h1>
                 <form id='pizza-form'>
                     <label>
                         Name
                         <input 
                             id='name-input'
                             name='fullname'
-                            value={props.name}
+                            // value={fullname}
                             type='text'
                         />
                     </label>
@@ -24,25 +36,25 @@ const Orderform = (props) => {
                         <input
                             type='checkbox'
                             name='peperoni'
-                            value={props.peperoni}
+                            // value={peperoni}
                         />
                         Olives
                         <input
                             type='checkbox'
                             name='olives'
-                            value={props.olives}
+                            // value={olives}
                         />
                         Peppers
                         <input
                             type='checkbox'
                             name='peppers'
-                            value={props.peppers}
+                            // value={peppers}
                         />
                         Mushrooms
                         <input
                             type='checkbox'
                             name='mushrooms'
-                            value={props.mushrooms}
+                            // value={mushrooms}
                         />
                     </label>
                     <label>
@@ -50,7 +62,7 @@ const Orderform = (props) => {
                         <input
                             type='text'
                             name='instructions'
-                            value={props.instructions}
+                            // value={instructions}
                             id='special-text'
                         />
                     </label>
