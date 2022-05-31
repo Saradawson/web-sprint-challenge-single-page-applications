@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+import * as yup from 'yup';
 
 const initialFormValues = {
    fullname: '',
@@ -10,8 +11,25 @@ const initialFormValues = {
    instructions: ''
 }
 
-const Orderform = () => {
+
+
+const Orderform = ({orders, setOrders}) => {
+    const formSchema = yup.object().shape({
+      fullname: yup.string().trim().min(2, "name must be at least 2 characters"),
+      size: yup.string().oneOf('small', 'medium', 'Large', 'Please pick a size...'),
+      peperoni: yup.boolean(),
+      olives: yup.boolean(),
+      peppers: yup.boolean(),
+      mushrooms: yup.boolean(),
+      instructions: yup.string().trim()   
+    });
+
     const [form, setForm] = useState(initialFormValues);
+    const [disabled, setDisabled] = useState(true);
+    const [errors, setErrors] = useState({
+        fullname: '',
+        size: ''  
+    });
 
     const formChange = (evt) => {
         const name = evt.target.name;
@@ -20,14 +38,15 @@ const Orderform = () => {
         setForm({...form, [name]: value});
     }
 
-    useEffect(() => {
-        console.log(form);
-    }, [form])
+    const submitHandler = (evt) => {
+        evt.preventDefault();
+        setOrders([form, ...orders ]);
+    }
 
     return(
         <div id='orderform'>
             <h1 id="order-form-h2">Create Your Own Pizza!</h1>
-                <form id='pizza-form'>
+                <form id='pizza-form' onSubmit={submitHandler}>
                     <label>
                         Name
                         <input 
@@ -41,8 +60,8 @@ const Orderform = () => {
                     <select name='size' id='size-dropdown' onChange={formChange}>
                         <option name='' value=''>--Pick a Size--</option>
                         <option name='small' value='small'>Small</option>
-                        <option value='medium'>Medium</option>
-                        <option value='large'>Large</option>
+                        <option name='medium' value='medium'>Medium</option>
+                        <option name='large' value='large'>Large</option>
                     </select>
                     <label> 
                         <p>Pick a Topping!</p>
@@ -85,7 +104,7 @@ const Orderform = () => {
                             onChange={formChange}
                         />
                     </label>
-                    <button id='order-button' type='submit'>
+                    <button id='order-button' type='submit' disabled={disabled}>
                         Submit Order
                     </button>
                 </form>

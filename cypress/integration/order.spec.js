@@ -15,5 +15,9 @@ describe('visits bloomtech eats website', () => {
         orderForm.click();
         const h2 = cy.get('#order-form-h2');
         h2.contains('Create Your Own Pizza');
+
+        const submitBtn = () => cy.get('#order-button');
+        submitBtn().should('be.disabled');
+
     })
 })
