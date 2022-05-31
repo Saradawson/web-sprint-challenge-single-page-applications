@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-const initialFormState = {
+const initialFormValues = {
    fullname: '',
    size: '',
    peperoni: false,
@@ -11,6 +11,7 @@ const initialFormState = {
 }
 
 const Orderform = () => {
+    const [form, setForm] = useState(initialFormValues);
 
     return(
         <div id='orderform'>
@@ -21,7 +22,7 @@ const Orderform = () => {
                         <input 
                             id='name-input'
                             name='fullname'
-                            // value={fullname}
+                            value={form.fullname}
                             type='text'
                         />
                     </label>
@@ -31,38 +32,39 @@ const Orderform = () => {
                         <option>Medium</option>
                         <option>Large</option>
                     </select>
-                    <label> Pick a Topping!
+                    <label> 
+                        <p>Pick a Topping!</p>
                         Peperoni
                         <input
                             type='checkbox'
                             name='peperoni'
-                            // value={peperoni}
+                            checked={form.peperoni}
                         />
                         Olives
                         <input
                             type='checkbox'
                             name='olives'
-                            // value={olives}
+                            checked={form.olives}
                         />
                         Peppers
                         <input
                             type='checkbox'
                             name='peppers'
-                            // value={peppers}
+                            checked={form.peppers}
                         />
                         Mushrooms
                         <input
                             type='checkbox'
                             name='mushrooms'
-                            // value={mushrooms}
+                            checked={form.mushrooms}
                         />
                     </label>
                     <label>
-                        Special Instructions
+                        <p>Special Instructions</p>
                         <input
                             type='text'
                             name='instructions'
-                            // value={instructions}
+                            value={form.instructions}
                             id='special-text'
                         />
                     </label>
