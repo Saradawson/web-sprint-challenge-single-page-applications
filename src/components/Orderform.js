@@ -1,5 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import * as yup from 'yup';
+import axios from 'axios';
+
 
 const initialFormValues = {
    fullname: '',
@@ -11,18 +14,18 @@ const initialFormValues = {
    instructions: ''
 }
 
-
-
 const Orderform = ({orders, setOrders}) => {
     const formSchema = yup.object().shape({
-      fullname: yup.string().trim().min(2, "name must be at least 2 characters"),
-      size: yup.string().oneOf('small', 'medium', 'Large', 'Please pick a size...'),
+      fullname: yup.string().trim().min(2, 'name must be at least 2 characters'),
+      size: yup.string(),
       peperoni: yup.boolean(),
       olives: yup.boolean(),
       peppers: yup.boolean(),
       mushrooms: yup.boolean(),
       instructions: yup.string().trim()   
     });
+
+    const history = useHistory()
 
     const [form, setForm] = useState(initialFormValues);
     const [disabled, setDisabled] = useState(true);
@@ -31,22 +34,49 @@ const Orderform = ({orders, setOrders}) => {
         size: ''  
     });
 
+    const validation = (name, value) => {
+       yup.reach(formSchema, name)
+        .validate(value)
+        .then(() => {
+           setErrors({...errors, [name]: ''}) 
+        })
+        .catch(error => {
+          setErrors({...errors, [name]: error.errors[0]})  
+        }) 
+    }
+
     const formChange = (evt) => {
         const name = evt.target.name;
         const value = evt.target.type === 'checkbox' ? evt.target.checked : evt.target.value;
-
+        validation(name, value);
         setForm({...form, [name]: value});
     }
 
     const submitHandler = (evt) => {
         evt.preventDefault();
-        setOrders([form, ...orders ]);
+        axios.post('https://reqres.in/api/users', form)
+            .then(res => {
+                setOrders([res.data, ...orders ]);
+                setForm(initialFormValues);
+                history.push('/myorder');
+            })
+            .catch(() => {
+                console.log('something went wrong with that post request')
+            })
     }
+
+    useEffect(() => {
+        formSchema.isValid(form)
+            .then(enable => {
+                setDisabled(!enable);
+            })
+    }, [form]);
 
     return(
         <div id='orderform'>
             <h1 id="order-form-h2">Create Your Own Pizza!</h1>
                 <form id='pizza-form' onSubmit={submitHandler}>
+                <p className='error'>{errors.fullname}</p>
                     <label>
                         Name
                         <input 

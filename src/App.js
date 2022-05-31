@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Switch, Route, Link } from "react-router-dom";
 import Orderform from "./components/Orderform";
 import './App.css';
@@ -6,9 +6,9 @@ import './App.css';
 const App = () => {
   const [orders, setOrders] = useState([])
 
-  useEffect(() => {
-    console.log(orders);
-  }, [orders])
+  // useEffect(() => {
+  //   console.log(orders);
+  // }, [orders])
 
   return (
     <>
@@ -33,7 +33,7 @@ const App = () => {
         <h1>BloomTech Eats has recieved your pickup order!</h1>
         {
           orders.map(order => (
-            <article>
+            <article key={`${order.id}-${order.createdAt}`}>
               <h2>{`${order.fullname}'s order is placed!`}</h2>
               <p>{`Size: ${order.size}`}</p>
               <h3>Toppings</h3>
