@@ -1,6 +1,8 @@
 #root {
   text-align: center;
   display: flex;
+  flex-direction: column;
+  background-color: pink;
 }
 
 header {
@@ -22,4 +24,7 @@ nav{
 nav a{
   text-decoration: none;
   color: rgb(219, 202, 202);
+}
+
+main {
 }

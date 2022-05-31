@@ -3,10 +3,6 @@ import React from 'react';
 const Orderform = (props) => {
     return(
         <div id='orderform'>
-            <header>
-                <h1>Create Your Own Pizza!</h1>
-            </header>
-            <section>
                 <form id='pizza-form'>
                     <label>
                         Name
@@ -62,7 +58,6 @@ const Orderform = (props) => {
                         Submit Order
                     </button>
                 </form>
-            </section>
         </div>
     )
 }

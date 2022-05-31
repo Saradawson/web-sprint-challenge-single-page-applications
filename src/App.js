@@ -6,7 +6,6 @@ import './App.css';
 const App = () => {
   return (
     <>
-    <Route exact path='/'>
     <header>
         <img id="pizzaImage" src="/pizza.jpg" alt="pizza" />
       <nav>
@@ -14,20 +13,18 @@ const App = () => {
         <Link id='order-pizza' to='/pizza'>Order a Pizza Here!</Link>
         <Link id="order-success" to='/myorder'>My Order</Link>
       </nav>
-      <h1>BloomTech Eats!</h1>
     </header>
-    </Route>
     <main>
     <Switch>
-      <Route exact path=''>
-
+      <Route exact path='/'>
+        <h1>BloomTech Eats!</h1>
+        <p>BloomTech Eats brings food to coders like you! Take a break and order a custom pizza! All you have to do is click 'Order a Pizza Here'!</p>
       </Route>
       <Route exact path='/pizza'>
+        <h1>Create Your Own Pizza!</h1>
         <Orderform />
       </Route>
-      <Route exact path=''>
-
-      </Route>
+      <Route exact path='/myorder'></Route>
     </Switch>
     </main>
     </>
