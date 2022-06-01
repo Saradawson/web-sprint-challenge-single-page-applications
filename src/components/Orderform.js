@@ -14,9 +14,19 @@ const initialFormValues = {
    instructions: ''
 }
 
+const initialFormErrors = {
+    fullname: '',
+    size: '',
+    peperoni: '',
+    olives: '',
+    peppers: '',
+    mushrooms: '',
+    instructions: ''
+}
+
 const Orderform = ({orders, setOrders}) => {
     const formSchema = yup.object().shape({
-      fullname: yup.string().trim().min(2, 'name must be at least 2 characters'),
+      fullname: yup.string().min(2, 'name must be at least 2 characters'),
       size: yup.string(),
       peperoni: yup.boolean(),
       olives: yup.boolean(),
@@ -29,10 +39,7 @@ const Orderform = ({orders, setOrders}) => {
 
     const [form, setForm] = useState(initialFormValues);
     const [disabled, setDisabled] = useState(true);
-    const [errors, setErrors] = useState({
-        fullname: '',
-        size: ''  
-    });
+    const [errors, setErrors] = useState(initialFormErrors);
 
     const validation = (name, value) => {
        yup.reach(formSchema, name)
@@ -56,9 +63,10 @@ const Orderform = ({orders, setOrders}) => {
         evt.preventDefault();
         axios.post('https://reqres.in/api/users', form)
             .then(res => {
-                setOrders([res.data, ...orders ]);
+                setOrders([res.data, ...orders]);
                 setForm(initialFormValues);
-                history.push('/myorder');
+                // 
+                console.log(res.data);
             })
             .catch(() => {
                 console.log('something went wrong with that post request')
@@ -69,6 +77,9 @@ const Orderform = ({orders, setOrders}) => {
         formSchema.isValid(form)
             .then(enable => {
                 setDisabled(!enable);
+            })
+            .catch(() => {
+                console.log('something went wrong')
             })
     }, [form]);
 

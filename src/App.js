@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Switch, Route, Link } from "react-router-dom";
 import Orderform from "./components/Orderform";
 import './App.css';
@@ -6,9 +6,8 @@ import './App.css';
 const App = () => {
   const [orders, setOrders] = useState([])
 
-  // useEffect(() => {
-  //   console.log(orders);
-  // }, [orders])
+  useEffect(() => {
+  }, [orders])
 
   return (
     <>
